@@ -1,0 +1,2 @@
+INSERT INTO producto (nombre, stock, precio, categoria) VALUES ('Teclado mecánico', 15, 79.99, 'Periféricos');
+INSERT INTO producto (nombre, stock, precio, categoria) VALUES ('Ratón gaming', 25, 49.90, 'Periféricos');
