@@ -34,7 +34,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public void createProducto(@RequestBody Producto producto) {
-        service.createProducto(producto);
+    public Producto createProducto(@RequestBody Producto producto) {
+        return service.createProducto(producto);
     }
 }

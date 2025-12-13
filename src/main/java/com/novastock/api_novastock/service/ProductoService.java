@@ -25,7 +25,7 @@ public class ProductoService {
         return repository.findById(id);
     }
 
-    public void createProducto(Producto producto) {
-        repository.save(producto);
+    public Producto createProducto(Producto producto) {
+        return repository.save(producto);
     }
 }
