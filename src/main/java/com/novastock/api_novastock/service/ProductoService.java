@@ -1,6 +1,7 @@
 package com.novastock.api_novastock.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public class ProductoService {
 
     public List<Producto> getAllProductos() {
         return repository.findAll();
+    }
+
+    public Optional<Producto> getByID(Long id) {
+        return repository.findById(id);
     }
 }

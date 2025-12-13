@@ -1,8 +1,10 @@
 package com.novastock.api_novastock.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +26,10 @@ public class ProductoController {
         return service.getAllProductos();
     }
 
-    /*@GetMapping("/{id}")
-    public List<Producto> getID(Long id) {
-        return repo.findById(id);
-    }*/
+    @GetMapping("/{id}")
+    public Producto getAll(@PathVariable Long id) {
+        return service.getByID(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    }
+
 }
