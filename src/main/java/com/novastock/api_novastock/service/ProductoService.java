@@ -10,9 +10,13 @@ import com.novastock.api_novastock.repository.ProductoRepository;
 @Service
 public class ProductoService {
 
-    private ProductoRepository repository;
+    private final ProductoRepository repository;
 
-    public List<Producto> getAllProductos(){
+    public ProductoService(ProductoRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<Producto> getAllProductos() {
         return repository.findAll();
     }
 }
