@@ -24,4 +24,8 @@ public class ProductoService {
     public Optional<Producto> getByID(Long id) {
         return repository.findById(id);
     }
+
+    public void createProducto(Producto producto) {
+        repository.save(producto);
+    }
 }
