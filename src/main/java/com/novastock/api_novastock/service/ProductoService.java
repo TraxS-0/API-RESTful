@@ -28,4 +28,13 @@ public class ProductoService {
     public Producto createProducto(Producto producto) {
         return repository.save(producto);
     }
+
+    public Producto updateProducto(Long id, Producto producto) {
+        producto.setId(id);
+        return repository.save(producto);
+    }
+
+    public void deleteProducto(Long id) {
+        repository.deleteById(id);
+    }
 }
