@@ -37,4 +37,8 @@ public class ProductoService {
     public void deleteProducto(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Producto> buscarPorNombreYStock(String nombre, int stock) {
+        return repository.findByNombreAndStock(nombre, stock);
+    }
 }

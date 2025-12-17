@@ -49,4 +49,9 @@ public class ProductoController {
     public void deleteProducto(@PathVariable Long id) {
         service.deleteProducto(id);
     }
+
+    @GetMapping("/buscar")
+    public List<Producto> buscarPorNombreYStock(String nombre, int stock) {
+        return service.buscarPorNombreYStock(nombre, stock);
+    }
 }
