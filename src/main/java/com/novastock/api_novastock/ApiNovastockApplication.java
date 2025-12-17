@@ -9,5 +9,4 @@ public class ApiNovastockApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiNovastockApplication.class, args);
 	}
-
 }

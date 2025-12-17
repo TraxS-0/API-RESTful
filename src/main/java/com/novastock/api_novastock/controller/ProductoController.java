@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.novastock.api_novastock.model.Producto;
@@ -35,9 +36,9 @@ public class ProductoController {
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public Producto createProducto(@RequestBody Producto producto) {
-        return service.createProducto(producto);
+        return service.saveProducto(producto);
     }
 
     @PutMapping("/{id}")
@@ -48,5 +49,10 @@ public class ProductoController {
     @DeleteMapping("/{id}")
     public void deleteProducto(@PathVariable Long id) {
         service.deleteProducto(id);
+    }
+
+    @GetMapping("/buscar")
+    public List<Producto> findByNombreAndCategoria(@RequestParam String nombre, @RequestParam String categoria) {
+        return service.buscarPorNombreYCategoria(nombre, categoria);
     }
 }

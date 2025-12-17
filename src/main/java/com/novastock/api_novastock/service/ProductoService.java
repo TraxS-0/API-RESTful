@@ -25,7 +25,7 @@ public class ProductoService {
         return repository.findById(id);
     }
 
-    public Producto createProducto(Producto producto) {
+    public Producto saveProducto(Producto producto) {
         return repository.save(producto);
     }
 
@@ -36,5 +36,9 @@ public class ProductoService {
 
     public void deleteProducto(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Producto> buscarPorNombreYCategoria(String nombre, String categoria) {
+        return repository.findByNombreAndCategoria(nombre, categoria);
     }
 }
