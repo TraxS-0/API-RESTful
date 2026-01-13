@@ -25,10 +25,6 @@ public class ProductoService {
         return repository.findById(id);
     }
 
-    public Producto saveProducto(Producto producto) {
-        return repository.save(producto);
-    }
-
     public Producto updateProducto(Long id, Producto producto) {
         producto.setId(id);
         return repository.save(producto);
@@ -40,5 +36,13 @@ public class ProductoService {
 
     public List<Producto> buscarPorNombreYCategoria(String nombre, String categoria) {
         return repository.findByNombreAndCategoria(nombre, categoria);
+    }
+
+    public Producto saveProducto(Producto nuevoProducto) {        
+        if (repository.existsByNombre(nuevoProducto.getNombre())) {
+            throw new RuntimeException("Ya existe un producto con el nombre: " + nuevoProducto.getNombre());
+        }
+        
+        return repository.save(nuevoProducto);
     }
 }
