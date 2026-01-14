@@ -44,7 +44,7 @@ public class ProductoService {
         if (repository.existsByNombre(nuevoProducto.getNombre())) {
             throw new RuntimeException("Ya existe un producto con el nombre: " + nuevoProducto.getNombre());
         }
-        
+
         return repository.save(nuevoProducto);
     }
 
@@ -61,5 +61,9 @@ public class ProductoService {
 
             repository.save(producto);
         }
+    }
+
+    public List<Producto> buscarPorStockMinMax(int min, int max) {
+        return repository.findByStockBetween(min, max);
     }
 }

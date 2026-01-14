@@ -101,4 +101,14 @@ public class ProductoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/buscar-por-stock")
+    public ResponseEntity<List<Producto>> findByStockBetween(@RequestParam int min, @RequestParam int max) {
+        try {
+            List<Producto> productosEncontrados = service.buscarPorStockMinMax(min, max);
+            return ResponseEntity.ok(productosEncontrados);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
