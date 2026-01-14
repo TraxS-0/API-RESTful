@@ -25,8 +25,11 @@ public class ProductoService {
         return repository.findById(id);
     }
 
-    public Producto createProducto(Producto producto) {
-        return repository.save(producto);
+    public Producto createProducto(String nombre, String categoria) {
+        Producto nuevoProducto = new Producto();
+        nuevoProducto.setNombre(nombre);
+        nuevoProducto.setCategoria(categoria);
+        return repository.save(nuevoProducto);
     }
 
     public Producto updateProducto(Long id, Producto producto) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.novastock.api_novastock.model.Producto;
@@ -36,8 +37,8 @@ public class ProductoController {
     }
 
     @PostMapping
-    public Producto createProducto(@RequestBody Producto producto) {
-        return service.createProducto(producto);
+    public Producto createProducto(@RequestParam String nombre, @RequestParam String categoria) {
+        return service.createProducto(nombre, categoria);
     }
 
     @PutMapping("/{id}")
