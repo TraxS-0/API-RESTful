@@ -2,6 +2,7 @@ package com.novastock.api_novastock.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,33 +27,78 @@ public class ProductoController {
     }
 
     @GetMapping
-    public List<Producto> getAll() {
-        return service.getAllProductos();
+    public ResponseEntity<List<Producto>> getAll() {
+        try {
+            List<Producto> productos = service.getAllProductos();
+            if (productos.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.ok(productos);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}")
-    public Producto getAll(@PathVariable Long id) {
-        return service.getByID(id)
-            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    public ResponseEntity<Producto> getAll(@PathVariable Long id) {
+        try {
+            Producto producto = service.getByID(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/crear")
-    public Producto createProducto(@RequestBody Producto producto) {
-        return service.saveProducto(producto);
+    public Producto createProducto(@RequestBody Producto productoNuevo) {
+        return service.saveProducto(productoNuevo);
     }
 
     @PutMapping("/{id}")
-    public Producto updateProducto(@PathVariable Long id, @RequestBody Producto producto) {
-        return service.updateProducto(id, producto);
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto productoActualizar) {
+        try {
+            if (service.getByID(id).isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            Producto producto = service.updateProducto(id, productoActualizar);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProducto(@PathVariable Long id) {
-        service.deleteProducto(id);
+    public ResponseEntity<?> deleteProducto(@PathVariable Long id) {
+        try {
+            if (service.getByID(id).isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            service.deleteProducto(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/buscar")
-    public List<Producto> findByNombreAndCategoria(@RequestParam String nombre, @RequestParam String categoria) {
-        return service.buscarPorNombreYCategoria(nombre, categoria);
+    public ResponseEntity<List<Producto>> findByNombreAndCategoria(@RequestParam String nombre, @RequestParam String categoria) {
+        try {
+            List<Producto> productos = service.buscarPorNombreYCategoria(nombre, categoria);
+            return ResponseEntity.ok(productos);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/lote")
+    public ResponseEntity<?> crearLote(@RequestBody List<Producto> productos) {
+        try {
+            service.saveAll(productos);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

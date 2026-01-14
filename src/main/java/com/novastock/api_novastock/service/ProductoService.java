@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.novastock.api_novastock.model.Producto;
 import com.novastock.api_novastock.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductoService {
 
@@ -44,5 +46,20 @@ public class ProductoService {
         }
         
         return repository.save(nuevoProducto);
+    }
+
+    @Transactional
+    public void saveAll(List<Producto> productos) {
+        for (Producto producto : productos) {
+            if (repository.existsByNombre(producto.getNombre())) {
+                throw new RuntimeException("El producto con nombre: " + producto.getNombre() + " ya existe");
+            }
+
+            if ("ERROR".equals(producto.getNombre())) {
+                throw new RuntimeException("Atributo prohibido, lanzando excepción");
+            }
+
+            repository.save(producto);
+        }
     }
 }
