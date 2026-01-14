@@ -1,6 +1,7 @@
 package com.novastock.api_novastock.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -65,5 +66,30 @@ public class ProductoService {
 
     public List<Producto> buscarPorStockMinMax(int min, int max) {
         return repository.findByStockBetween(min, max);
+    }
+
+    @Transactional
+    public Producto patchUpdate(Long id, Map<String, Object> updates) throws RuntimeException {
+        List<Producto> productos = getAllProductos();
+
+        for (Producto producto : productos) {
+            if (producto.getId().equals(producto.getId())) {
+                if (updates.containsKey("nombre")) {
+                    producto.setNombre((String) updates.get("nombre"));
+                }
+                if (updates.containsKey("stock")) {
+                    producto.setStock((int) updates.get("stock"));
+                }
+                if (updates.containsKey("precio")) {
+                    producto.setPrecio((double) updates.get("precio"));
+                }
+                if (updates.containsKey("categoria")) {
+                    producto.setCategoria((String) updates.get("categoria"));
+                }
+                repository.save(producto);
+                return producto;
+            }
+        }
+        throw new RuntimeException("Producto no encontrado con el id: " + id);
     }
 }

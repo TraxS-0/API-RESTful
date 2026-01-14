@@ -1,10 +1,12 @@
 package com.novastock.api_novastock.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -108,6 +110,16 @@ public class ProductoController {
             List<Producto> productosEncontrados = service.buscarPorStockMinMax(min, max);
             return ResponseEntity.ok(productosEncontrados);
         } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Producto> actualizarCampo(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        try {
+            Producto producto = service.patchUpdate(id, updates);
+            return ResponseEntity.ok(producto);
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
