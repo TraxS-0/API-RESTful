@@ -4,32 +4,43 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "cliente")
 @Data
-public class Producto {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private int stock;
-    private double precio;
-    private String categoria;
 
-    @ManyToOne
-    @MapsId
-    @JoinColumn(name = "proveedor_id")
-    private Proveedor proveedor;
+    
+    public Long getId() {
+        return id;
+    }
 
-    public Producto() {
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+
+
+    public Cliente() {
 
     }
 }

@@ -41,4 +41,9 @@ public class ProductoService {
     public List<Producto> buscarPorNombreYStock(String nombre, int stock) {
         return repository.findByNombreAndStock(nombre, stock);
     }
+
+    public Long countById_Proveedor(Long id_Proveedor) {
+        return repository.countById_Proveedor(id_Proveedor);
+    }
+
 }

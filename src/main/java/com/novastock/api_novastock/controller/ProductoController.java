@@ -35,6 +35,11 @@ public class ProductoController {
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
 
+    @GetMapping("/{id}/conteo-productos")
+    public Long conteoProductos(@PathVariable Long id_Proveedor) {
+        return service.countById_Proveedor(id_Proveedor);
+    }
+
     @PostMapping
     public Producto createProducto(@RequestBody Producto producto) {
         return service.createProducto(producto);
