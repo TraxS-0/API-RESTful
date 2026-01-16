@@ -42,8 +42,8 @@ public class ProductoService {
         return repository.findByNombreAndStock(nombre, stock);
     }
 
-    public Long countById_Proveedor(Long id_Proveedor) {
-        return repository.countById_Proveedor(id_Proveedor);
+    public Long countByProveedor_IdProveedor(Long id_Proveedor) {
+        return repository.countByProveedor_IdProveedor(id_Proveedor);
     }
 
 }

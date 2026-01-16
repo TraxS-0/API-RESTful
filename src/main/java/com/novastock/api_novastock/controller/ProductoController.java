@@ -29,15 +29,15 @@ public class ProductoController {
         return service.getAllProductos();
     }
 
-    @GetMapping("/{id}")
-    public Producto getAll(@PathVariable Long id) {
-        return service.getByID(id)
+    @GetMapping("/{idProveedor}")
+    public Producto getAll(@PathVariable Long idProveedor) {
+        return service.getByID(idProveedor)
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
 
-    @GetMapping("/{id}/conteo-productos")
-    public Long conteoProductos(@PathVariable Long id_Proveedor) {
-        return service.countById_Proveedor(id_Proveedor);
+    @GetMapping("/{idProveedor}/conteo-productos")
+    public Long conteoProductos(@PathVariable Long idProveedor) {
+        return service.countByProveedor_IdProveedor(idProveedor);
     }
 
     @PostMapping
